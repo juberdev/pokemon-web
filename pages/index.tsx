@@ -6,6 +6,13 @@ import {
   Mesh,
   MeshBasicMaterial,
   BoxGeometry,
+  SphereGeometry,
+  TextureLoader,
+  BackSide,
+  MeshPhongMaterial,
+  DirectionalLight, //luz del sol
+  HemisphereLight,
+  AmbientLight, //luz genera;
 } from "three";
 
 export default function Page() {
@@ -34,6 +41,26 @@ export default function Page() {
     const geometria = new BoxGeometry(1, 1, 1); //ancho, alto, profundidad
     const material = new MeshBasicMaterial({ color: 0xffffff }); // textura
     const cubo = new Mesh(geometria, material);
+
+    // crear skybox (las cosas que avnde fondo )
+    const skygeomety = new SphereGeometry(360, 25, 25); //tamaño/ num egament tamaño segmento
+
+    const loader = new TextureLoader();
+    // caragamos a textura
+    const textura = loader.load("/custom-sky.png");
+    const material02 = new MeshPhongMaterial({
+      map: textura,
+    });
+
+    // crear la ilumincacion
+    scene.add(new AmbientLight(0xffffff, 0.8)); //luz - intecidad
+    scene.add(new HemisphereLight(0xffffff, 0.8)); //luz - intecidad
+
+    const skybox = new Mesh(skygeomety, material02); // creamos el sckibox con textura
+
+    // agregar el skybox a la scena
+    scene.add(skybox);
+    skybox.material.side = BackSide; // para qeu se vea del aldo reverso
 
     // agregar cubo
     scene.add(cubo);
