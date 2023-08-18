@@ -1,9 +1,9 @@
 import React from "react";
 
-export default function Section() {
+export default function Section3() {
   return (
     <section>
-      <div className="center" id="s1">
+      <div className="center" id="s3">
         <h1>texto del titulo</h1>
         <p>
           Mesh objects represent drawing a specific Geometry with a specific
